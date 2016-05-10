@@ -277,12 +277,12 @@ namespace Assets.scripts {
         public delegate void Activity();
         public Activity StartActivity;
 
-        public Clickable(Vector2 topLeftPos, int width, int height) {
+        public Clickable(Vector2 topLeftPos, float width, float height) {
             clickRect = new Rect(topLeftPos.x, topLeftPos.y, width, height);
             nodeNearRect = null;
         }
 
-        public Clickable(Vector2 topLeftPos, int width, int height, Node nearestNode) {
+        public Clickable(Vector2 topLeftPos, float width, float height, Node nearestNode) {
             clickRect = new Rect(topLeftPos.x, topLeftPos.y, width, height);
             nodeNearRect = nearestNode;
         }

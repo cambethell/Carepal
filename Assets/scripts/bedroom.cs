@@ -40,11 +40,11 @@ public class bedroom : MonoBehaviour {
 
         // define clockBox clickBox and it's animation function delegate
             // position is center of object - half of width/height
-        Clickable clockBox = new Clickable(new Vector2((6.481f - .5f), (0.253f - .5f)), 1, 1, bedroomScene.movementNodes[7]);
+        Clickable clockBox = new Clickable(new Vector2((6.481f - .5f), (0.253f - .5f)), 1f, 1f, bedroomScene.movementNodes[7]);
         var clockScript = clockObject.GetComponent<clock_controller>();
         clockBox.StartActivity = clockScript.StartRing;
 
-        Clickable doorBox = new Clickable(new Vector2((-10.14934f - 2), (-0.310485f - 2)), 4, 6, bedroomScene.movementNodes[1]);
+        Clickable doorBox = new Clickable(new Vector2((-10.14934f - 2f), (-0.310485f - 2f)), 4f, 6.5f, bedroomScene.movementNodes[1]);
         doorBox.StartActivity = () => SceneManager.LoadScene("LevelKitchen");
 
         // populate the clickboxlist

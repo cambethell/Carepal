@@ -34,7 +34,7 @@ public class kitchen : MonoBehaviour {
 
         // define clockBox clickBox and it's animation function delegate
             // position is center of object - half of width/height
-        Clickable stairsBox = new Clickable(new Vector2((3.644229f - 2), (1.755371f - 2)), 4, 4, kitchenScene.movementNodes[0]);
+        Clickable stairsBox = new Clickable(new Vector2((3.644229f - 2f), (1.755371f - 2f)), 4f, 4f, kitchenScene.movementNodes[0]);
         stairsBox.StartActivity = () => SceneManager.LoadScene("level 1");
 
         // populate the clickboxlist
