@@ -32,10 +32,14 @@ public class bedroom : MonoBehaviour {
 
         // game was just launched
         if (!created) {
+            // set tutorial to 1
+            PlayerPrefs.SetInt("Tutorial", 1);
+
             // set sandwichMade to 0 on game start
             PlayerPrefs.SetInt("SandwichMade", 0);
 
-            DontDestroyOnLoad(onStartTest.gameObject);
+            //This will break on Android if onStartTest is null
+            //DontDestroyOnLoad(onStartTest.gameObject);
             created = true;
             if (PlayerPrefs.GetInt("Tutorial") == 1) {
                 doIntro = true;
@@ -43,7 +47,8 @@ public class bedroom : MonoBehaviour {
                 doIntro = false;
             }
         } else {
-            Destroy(onStartTest.gameObject);
+            //This will break on Android if onStartTest is null
+            //Destroy(onStartTest.gameObject);
             doIntro = false;
         }
 
@@ -165,8 +170,13 @@ public class bedroom : MonoBehaviour {
                 bedroomScript.BedBehind();
             }
 
-            // update the bedroom
-            bedroomScene.sceneUpdate();
+            //If the player is in bed, any click will cause them to leave the bed.
+            if (Input.GetMouseButtonDown(0) == true && bedroomScript.isInBed()) {
+                bedroomScript.ToggleSleeping();
+            } else {
+                // update the bedroom
+                bedroomScene.sceneUpdate();
+            }
         }
 
         // move the speech bubble over the pal on each frame
@@ -174,12 +184,14 @@ public class bedroom : MonoBehaviour {
 
         // update the pal's hunger on each frame
         if(!doIntro) {
-            var newhunger = PlayerPrefs.GetFloat("Hunger") - (Time.deltaTime * 0.5f);
-            PlayerPrefs.SetFloat("Hunger", newhunger);
+            var newhunger = PlayerPrefs.GetFloat("Hunger") - ((Time.deltaTime * 0.5f)/1.5f);
+            if (newhunger >= 0) {
+                PlayerPrefs.SetFloat("Hunger", newhunger);
+            }
         }        
         // start sandwich game quest: character says they are hungry, speech bubble follows them.
         // sandwich floating and wiggling on door and fridge
-        if (PlayerPrefs.GetFloat("Hunger") <= 3) {
+        if (PlayerPrefs.GetFloat("Hunger") <= 2) {
             if(!displaySandwich) {
                 Instantiate(sandwich_icon);
                 displaySandwich = true;
